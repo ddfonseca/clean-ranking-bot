@@ -4,7 +4,7 @@
 	"main": "index.js",
 	"license": "MIT",
 	"scripts": {
-		"start": "NODE_ENV=production npx node dist/main_api.js",
+		"start": "npx tsc && npx node dist/src/main_api.js",
 		"dev": "NODE_ENV=development nodemon src/main_api.ts"
 	},
 	"engine": {
