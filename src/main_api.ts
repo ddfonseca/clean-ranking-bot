@@ -25,7 +25,7 @@ async function main() {
 	const usecaseFactory = new UsecaseFactory(gatewayFactory, repositoryFactory, sub)
 	new HttpController(httpServer, usecaseFactory)
 	new QueueController(sub, usecaseFactory)
-	httpServer.listen(8443)
+	httpServer.listen(config.port)
 }
 
 main()

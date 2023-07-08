@@ -7,6 +7,9 @@
 		"start": "NODE_ENV=production npx node dist/main_api.js",
 		"dev": "NODE_ENV=development nodemon src/main_api.ts"
 	},
+	"engine": {
+		"node": "18.16"
+	},
 	"dependencies": {
 		"@types/express": "^4.17.17",
 		"@types/jest": "^29.5.0",

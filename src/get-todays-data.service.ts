@@ -1,6 +1,6 @@
 import moment from 'moment-timezone'
 
-export function getDate(date: Date): string {
+export function getTodaysDate(date: Date): string {
 	// Obtém a data e hora atual no fuso horário de São Paulo
 	const now = moment(date).tz('America/Sao_Paulo')
 

@@ -3,7 +3,7 @@ import cors from 'cors'
 import { HttpServer } from './http-server.interface'
 
 export default class ExpressAdapter implements HttpServer {
-	app: any
+	private app: any
 
 	constructor() {
 		this.app = express()
@@ -26,7 +26,7 @@ export default class ExpressAdapter implements HttpServer {
 	}
 
 	listen(port: number): void {
-		this.app.listen(port, () => {
+		this.app.listen(port, '0.0.0.0', () => {
 			console.log(`app running on ${port}`)
 		})
 	}

@@ -22,11 +22,14 @@ export class TelegramPresenter implements Presenter {
 
 	get title() {
 		if (this.dateIn === this.dateOut) {
-			const formattedDate = moment(this.dateIn).locale('pt-br').format('D [de] MMMM [de] YYYY')
-			return `Ranking de ${formattedDate} 🏆\n\n`
+			const formattedDate = moment(this.dateIn).locale('pt-br').format('DD [de] MMMM [de] YYYY')
+			return `# Ranking de ${formattedDate} 🏆\n\n`
 		}
-		const formattedDateIn = moment(this.dateIn).locale('pt-br').format('D [de] MMMM [de] YYYY')
-		const formattedDateOut = moment(this.dateOut).locale('pt-br').format('D [de] MMMM [de] YYYY')
-		return `Ranking entre ${formattedDateIn} e ${formattedDateOut} 🏆\n\n`
+		const formattedDateIn = moment(this.dateIn).locale('pt-br').format('DD [de] MMMM [de] YYYY')
+		const formattedDateOut = moment(this.dateOut).locale('pt-br').format('DD [de] MMMM [de] YYYY')
+		const diffInDays = moment(this.dateOut).diff(moment(this.dateIn), 'days') + 1
+		const diffText = diffInDays > 1 ? `${diffInDays} dias` : `${diffInDays} dia`
+
+		return `# Ranking acumulativo (${diffText})\nEntre as datas ${formattedDateIn} e ${formattedDateOut} 🏆\n\n`
 	}
 }

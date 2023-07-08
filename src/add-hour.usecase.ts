@@ -1,5 +1,5 @@
 import { GatewayFactory } from './gateway.factory'
-import { getDate } from './get-data.service'
+import { getTodaysDate } from './get-todays-data.service'
 import { MinutesCalculator } from './match-minutes.service'
 import { MinutesRepository } from './minutes.repository'
 import { RepositoryFatory } from './repository.factory'
@@ -21,7 +21,6 @@ export class AddHour {
 		const chatId = input?.message?.chat?.id
 		const re = /\/add\s+(\d{1,2})[:h]?(\d{0,2})/
 		const match = re.exec(input?.message?.text) || false
-		console.log(match)
 		if (!match) {
 			this.telegramGateway.sendMessage(chatId, 'Padrão incorreto. Exemplos: /add 3h ou /add 3h30 ou /add 3:30')
 			return
@@ -31,10 +30,10 @@ export class AddHour {
 		if (!user) {
 			await this.userRepo.create(userId, name, username)
 		}
-		const date = getDate(new Date())
+		const todayT = new Date()
+		const date = getTodaysDate(todayT)
 		const minutes = MinutesCalculator.calculate(match)
 		await this.minutesRepo.create(userId, date, minutes)
-		// const DAVID_CHATID = 198776455
 		this.publisher.publish('minutes-added', { chatId })
 	}
 }

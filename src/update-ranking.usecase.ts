@@ -1,5 +1,6 @@
 import { GatewayFactory } from './gateway.factory'
-import { getDate } from './get-data.service'
+import { getDates } from './get-dates.service'
+import { getTodaysDate } from './get-todays-data.service'
 import { MinutesRepository } from './minutes.repository'
 import { Presenter } from './presenter.interface'
 import { RepositoryFatory } from './repository.factory'
@@ -16,14 +17,19 @@ export class UpdateRanking {
 	}
 
 	async execute(input: Input): Promise<Output> {
-		const date = getDate(new Date())
-		// busca o ranking do dia acontualizado
-		const dateIn = '2023-07-01'
-		const dateOut = '2023-07-06'
-		const users = await this.minutesRepo.getRanking(dateIn, dateOut)
-		const present = new TelegramPresenter(users, dateIn, dateOut).present()
+		// users today
+		const todayT = new Date()
+		const today = getTodaysDate(todayT)
+		this.minutesRepo.getRanking(today, today).then(users => {
+			return this.telegramGateway.sendMessage(input.chatId, new TelegramPresenter(users, today, today).present())
+		})
 
-		this.telegramGateway.sendMessage(input.chatId, present)
+		// users acumualtive
+		const { dateIn, dateOut } = getDates(todayT)
+		if (dateIn === dateOut) return
+		this.minutesRepo.getRanking(dateIn, dateOut).then(usersAcumulative => {
+			return this.telegramGateway.sendMessage(input.chatId, new TelegramPresenter(usersAcumulative, dateIn, dateOut).present())
+		})
 	}
 }
 
