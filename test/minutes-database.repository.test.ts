@@ -5,15 +5,14 @@ import { UserRepository } from '../src/user.repository'
 import { MinutesDatabaseRepository } from '../src/minutes-database.repository'
 import { MinutesRepository } from '../src/minutes.repository'
 import DatabaseConnection from '../src/database-connection.interface'
+import { configDbTest } from './setup-db/config-db-test'
 
 describe('MinutesRepositoryDatabase', () => {
 	let connection: DatabaseConnection
 	let userRepo: UserRepository
 	let minutesRepo: MinutesRepository
 	beforeEach(async () => {
-		connection = new PgPromiseAdapter({
-			postgresUri: 'postgres://admin:123456@localhost:5432/ranking',
-		} as ConfigEnv)
+		connection = new PgPromiseAdapter(configDbTest as ConfigEnv)
 		userRepo = new UserDatabaseRepository(connection)
 		minutesRepo = new MinutesDatabaseRepository(connection)
 		await userRepo.clean()

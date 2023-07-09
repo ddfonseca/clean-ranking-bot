@@ -1,20 +1,18 @@
 import PgPromiseAdapter from '../src/pg-promise.adapter'
 import { UserDatabaseRepository } from '../src/user-database.repository'
-import dotenv from 'dotenv'
-dotenv.config({ path: `.env.development` })
-import { config } from '../src/config.env'
 import { UserRepository } from '../src/user.repository'
 import DatabaseConnection from '../src/database-connection.interface'
 import { MinutesDatabaseRepository } from '../src/minutes-database.repository'
 import { MinutesRepository } from '../src/minutes.repository'
+import { configDbTest } from './setup-db/config-db-test'
+import { ConfigEnv } from '../src/config.env'
 
 describe('UserRepositoryDatabase', () => {
 	let connection: DatabaseConnection
 	let userRepo: UserRepository
 	let minutesRepo: MinutesRepository
 	beforeEach(async () => {
-		connection = new PgPromiseAdapter(config)
-		connection.connect()
+		connection = new PgPromiseAdapter(configDbTest as ConfigEnv)
 		userRepo = new UserDatabaseRepository(connection)
 		minutesRepo = new MinutesDatabaseRepository(connection)
 		await userRepo.clean()
