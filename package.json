@@ -4,8 +4,11 @@
 	"main": "index.js",
 	"license": "MIT",
 	"scripts": {
+		"build": "NODE_ENV=production tsc",
 		"start": "NODE_ENV=production node dist/src/main_api.js",
-		"dev": "NODE_ENV=development nodemon src/main_api.ts"
+		"dev": "NODE_ENV=development nodemon src/main_api.ts",
+		"test:unit": "jest test/unit/*",
+		"test:int": "jest test/integration/* --runInBand"
 	},
 	"engine": {
 		"node": "18.16"

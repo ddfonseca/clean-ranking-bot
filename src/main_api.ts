@@ -1,16 +1,16 @@
 import dotenv from 'dotenv'
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` })
 
-import { config } from './config.env'
-import PgPromiseAdapter from './pg-promise.adapter'
-import AxiosAdapter from './axios.adapter'
-import { GatewayHttpFactory } from './gateway-http.factory'
-import { UsecaseFactory } from './usecase.factory'
-import ExpressAdapter from './express.adapter'
-import HttpController from './http.controller'
-import { DatabaseRepositoryFactory } from './database-repository.factory'
-import { QueueController } from './queue.controller'
-import { RankingPublisherSubscriber } from './ranking.subscriber'
+import { config } from './config/config.env'
+import PgPromiseAdapter from './infra/database/pg-promise.adapter'
+import AxiosAdapter from './infra/http/axios.adapter'
+import { GatewayHttpFactory } from './infra/factory/gateway-http.factory'
+import { UsecaseFactory } from './application/factory/usecase.factory'
+import ExpressAdapter from './infra/http/express.adapter'
+import HttpController from './infra/http/http.controller'
+import { DatabaseRepositoryFactory } from './infra/factory/database-repository.factory'
+import { QueueController } from './application/events/queue.controller'
+import { RankingPublisherSubscriber } from './application/events/ranking.subscriber'
 import { EventEmitter } from 'node:events'
 
 async function main() {
