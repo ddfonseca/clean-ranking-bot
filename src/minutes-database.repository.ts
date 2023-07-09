@@ -1,4 +1,4 @@
-import DatabaseConnection from './datavase-connection.interface'
+import DatabaseConnection from './database-connection.interface'
 import { MinutesRepository } from './minutes.repository'
 import { UserAcumulative } from './user.entity'
 
@@ -24,6 +24,7 @@ export class MinutesDatabaseRepository implements MinutesRepository {
 			 ;`,
 			[dateIn, dateOut]
 		)
+		if (!data) return []
 		return data.map(({ name, username, total_minutes }) => new UserAcumulative(name, username, parseInt(total_minutes)))
 	}
 }

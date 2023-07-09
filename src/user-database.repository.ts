@@ -1,4 +1,4 @@
-import DatabaseConnection from './datavase-connection.interface'
+import DatabaseConnection from './database-connection.interface'
 import { User } from './user.entity'
 import { UserRepository } from './user.repository'
 
@@ -21,8 +21,9 @@ export class UserDatabaseRepository implements UserRepository {
 		return new User(userData.id, userData.name, userData.username)
 	}
 
-	async findAll(): Promise<User[]> {
+	async findAll(): Promise<User[] | null> {
 		const usersData = await this.connection.query('SELECT * FROM ranking.users', [])
+		if (!usersData) return null
 		return usersData.map((userData: any) => new User(userData.id, userData.name, userData.username))
 	}
 

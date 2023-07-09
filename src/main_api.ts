@@ -15,7 +15,6 @@ import { EventEmitter } from 'node:events'
 
 async function main() {
 	const connection = new PgPromiseAdapter(config)
-	connection.connect()
 	//   const repositoryFactory = new DatabaseRepositoryFactory(connection);
 	const httpClient = new AxiosAdapter()
 	const gatewayFactory = new GatewayHttpFactory(httpClient, config)

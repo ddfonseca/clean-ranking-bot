@@ -1,13 +1,11 @@
 import pgp from 'pg-promise'
-import DatabaseConnection from './datavase-connection.interface'
+import DatabaseConnection from './database-connection.interface'
 import { ConfigEnv } from './config.env'
 
 export default class PgPromiseAdapter implements DatabaseConnection {
 	connection: any
 
-	constructor(readonly config: ConfigEnv) {}
-
-	async connect(): Promise<void> {
+	constructor(readonly config: ConfigEnv) {
 		this.connection = pgp()(this.config.postgresUri)
 	}
 

@@ -1,4 +1,4 @@
-import DatabaseConnection from './datavase-connection.interface'
+import DatabaseConnection from './database-connection.interface'
 import { MinutesDatabaseRepository } from './minutes-database.repository'
 import { MinutesRepository } from './minutes.repository'
 import { RepositoryFatory } from './repository.factory'
