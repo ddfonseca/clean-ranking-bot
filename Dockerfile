@@ -34,4 +34,6 @@ WORKDIR /app
 ENV NODE_ENV production
 ENV PATH /root/.volta/bin:$PATH
 
+# EXPOSE 8443
+
 CMD [ "yarn", "run", "start" ]

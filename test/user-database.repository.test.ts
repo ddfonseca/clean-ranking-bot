@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 dotenv.config({ path: `.env.development` })
 import { config } from '../src/config.env'
 import { UserRepository } from '../src/user.repository'
-import DatabaseConnection from '../src/datavase-connection.interface'
+import DatabaseConnection from '../src/database-connection.interface'
 import { MinutesDatabaseRepository } from '../src/minutes-database.repository'
 import { MinutesRepository } from '../src/minutes.repository'
 
