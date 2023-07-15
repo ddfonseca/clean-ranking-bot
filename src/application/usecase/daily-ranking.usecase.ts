@@ -7,7 +7,7 @@ import { RepositoryFatory } from '../factory/repository.factory'
 import { TelegramGateway } from '../gateway/telegram.gateway'
 import { TelegramPresenter } from '../../infra/presenter/telegram.presenter'
 
-export class UpdateRanking {
+export class DailyRanking {
 	minutesRepo: MinutesRepository
 	telegramGateway: TelegramGateway
 
@@ -22,13 +22,6 @@ export class UpdateRanking {
 		const today = getTodaysDate(todayT)
 		this.minutesRepo.getRanking(today, today).then(users => {
 			return this.telegramGateway.sendMessage(input.chatId, new TelegramPresenter(users, today, today).present())
-		})
-
-		// users acumualtive
-		const { dateIn, dateOut } = getDates(todayT)
-		if (dateIn === dateOut) return
-		this.minutesRepo.getRanking(dateIn, dateOut).then(usersAcumulative => {
-			return this.telegramGateway.sendMessage(input.chatId, new TelegramPresenter(usersAcumulative, dateIn, dateOut).present())
 		})
 	}
 }

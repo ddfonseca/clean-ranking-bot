@@ -2,7 +2,8 @@ import { AddHour } from '../usecase/add-hour.usecase'
 import { GatewayFactory } from './gateway.factory'
 import { RepositoryFatory } from './repository.factory'
 import { Subscriber } from '../events/subscriber.interface'
-import { UpdateRanking } from '../usecase/update-ranking.usecase'
+import { DailyRanking } from '../usecase/daily-ranking.usecase'
+import { UpdateAcumulativeRanking } from '../usecase/acumulative-ranking.usecase'
 
 export class UsecaseFactory {
 	constructor(
@@ -15,7 +16,11 @@ export class UsecaseFactory {
 		return new AddHour(this.repositoryFactory, this.gatewayFactory, this.subscriber)
 	}
 
-	updateRanking() {
-		return new UpdateRanking(this.repositoryFactory, this.gatewayFactory)
+	createDaiylyRanking() {
+		return new DailyRanking(this.repositoryFactory, this.gatewayFactory)
+	}
+
+	createAcumulativeRanking() {
+		return new UpdateAcumulativeRanking(this.repositoryFactory, this.gatewayFactory)
 	}
 }

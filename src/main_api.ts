@@ -9,9 +9,10 @@ import { UsecaseFactory } from './application/factory/usecase.factory'
 import ExpressAdapter from './infra/http/express.adapter'
 import HttpController from './infra/http/http.controller'
 import { DatabaseRepositoryFactory } from './infra/factory/database-repository.factory'
-import { QueueController } from './application/events/queue.controller'
+import { QueueController } from './infra/queue/queue.controller'
 import { RankingPublisherSubscriber } from './application/events/ranking.subscriber'
 import { EventEmitter } from 'node:events'
+import { CronController } from './infra/queue/cron.controller'
 
 async function main() {
 	const connection = new PgPromiseAdapter(config)
@@ -24,6 +25,7 @@ async function main() {
 	const usecaseFactory = new UsecaseFactory(gatewayFactory, repositoryFactory, sub)
 	new HttpController(httpServer, usecaseFactory)
 	new QueueController(sub, usecaseFactory)
+	new CronController(usecaseFactory)
 	httpServer.listen(config.port)
 }
 

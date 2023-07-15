@@ -1,0 +1,2 @@
+export const HORAS_LIQUIDAS_GROUP_ID = -1001775729879
+export const DAVID_ID = 198776455
