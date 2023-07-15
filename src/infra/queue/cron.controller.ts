@@ -6,7 +6,10 @@ export class CronController {
 	constructor(usecaseFactory: UsecaseFactory) {
 		const acumulativeRanking = usecaseFactory.createAcumulativeRanking()
 		try {
-			cron.schedule('30 10 * * *', async () => acumulativeRanking.execute({ chatId: HORAS_LIQUIDAS_GROUP_ID }))
+			cron.schedule('0 9 * * *', async () => acumulativeRanking.execute({ chatId: HORAS_LIQUIDAS_GROUP_ID }), {
+				scheduled: true,
+				timezone: 'America/Sao_Paulo',
+			})
 		} catch (e) {
 			console.log(e)
 		}

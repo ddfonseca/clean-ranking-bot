@@ -1,11 +1,11 @@
 import { GatewayFactory } from '../factory/gateway.factory'
-import { getTodaysDate } from '../../domain/services/get-todays-data.service'
 import { MinutesCalculator } from '../../domain/services/match-minutes.service'
 import { MinutesRepository } from '../repository/minutes.repository'
 import { RepositoryFatory } from '../factory/repository.factory'
 import { Subscriber } from '../events/subscriber.interface'
 import { TelegramGateway } from '../gateway/telegram.gateway'
 import { UserRepository } from '../repository/user.repository'
+import { DatesService } from '../../domain/services/dates.service'
 
 export class AddHour {
 	telegramGateway: TelegramGateway
@@ -31,7 +31,7 @@ export class AddHour {
 			await this.userRepo.create(userId, name, username)
 		}
 		const todayT = new Date()
-		const date = getTodaysDate(todayT)
+		const date = DatesService.getTodaysDate(todayT)
 		const minutes = MinutesCalculator.calculate(match)
 		await this.minutesRepo.create(userId, date, minutes)
 		this.publisher.publish('minutes-added', { chatId })

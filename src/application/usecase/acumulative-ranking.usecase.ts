@@ -1,9 +1,9 @@
 import { GatewayFactory } from '../factory/gateway.factory'
-import { getDates } from '../../domain/services/get-dates.service'
 import { MinutesRepository } from '../repository/minutes.repository'
 import { RepositoryFatory } from '../factory/repository.factory'
 import { TelegramGateway } from '../gateway/telegram.gateway'
 import { TelegramPresenter } from '../../infra/presenter/telegram.presenter'
+import { DatesService } from '../../domain/services/dates.service'
 
 export class UpdateAcumulativeRanking {
 	minutesRepo: MinutesRepository
@@ -16,7 +16,7 @@ export class UpdateAcumulativeRanking {
 
 	async execute(input: Input): Promise<Output> {
 		// users acumualtive
-		const { dateIn, dateOut } = getDates(new Date())
+		const { dateIn, dateOut } = DatesService.getDatesFromTheSameWeek(new Date())
 		if (dateIn === dateOut) return
 		this.minutesRepo.getRanking(dateIn, dateOut).then(usersAcumulative => {
 			return this.telegramGateway.sendMessage(input.chatId, new TelegramPresenter(usersAcumulative, dateIn, dateOut).present())
