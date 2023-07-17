@@ -28,10 +28,10 @@ export class DatesService {
 		// Obtém a data e hora atual no fuso horário de São Paulo
 		const now = moment(date).tz('America/Sao_Paulo')
 
-		// Define o limite como 9:00 do dia atual
-		const limit = moment(date).tz('America/Sao_Paulo').startOf('day').add(9, 'hours')
+		// Define o limite como 12:00 do dia atual
+		const limit = moment(date).tz('America/Sao_Paulo').startOf('day').add(12, 'hours')
 
-		// Se a hora atual for antes das 9:00, subtrai um dia para obter a data de ontem
+		// Se a hora atual for antes das 12:00, subtrai um dia para obter a data de ontem
 		if (now.isBefore(limit)) {
 			now.subtract(1, 'days')
 		}
